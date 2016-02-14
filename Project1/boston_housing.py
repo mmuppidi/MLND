@@ -179,10 +179,13 @@ def fit_predict_model(city_data):
     # http://scikit-learn.org/stable/modules/geerated/sklearn.grid_search.GridSearchCV.html#sklearn.grid_search.GridSearchCV
 
     # Fit the learner to the training data to obtain the best parameter set
-    scorer = make_scorer(mean_squared_error)
+    scorer = make_scorer(mean_squared_error,greater_is_better=False)
     reg = grid_search.GridSearchCV(regressor,parameters,scorer)
     print "Final Model: "
+
     print reg.fit(X, y)
+
+    print "Best model parameter:  ", reg.best_params_
 
     
     # Use the model to predict the output of a particular sample
@@ -190,6 +193,7 @@ def fit_predict_model(city_data):
     y = reg.predict(x)
     print "House: " + str(x)
     print "Prediction: " + str(y)
+   
 
 #In the case of the documentation page for GridSearchCV, it might be the case that the example is just a demonstration of syntax for use of the function, rather than a statement about 
 def main():
@@ -217,7 +221,7 @@ def main():
     
     # Tune and predict Model
     fit_predict_model(city_data)
-   
+
 
 if __name__ == "__main__":
     main()
